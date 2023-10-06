@@ -1,0 +1,25 @@
+GERAL SCOPE
+-> Catalogo de produtos
+-> Menu de compra
+
+USER SCOPE
+-> Definir saldo inicial
+-> Carrinho de compras
+-> Historico de compras
+
+CLASS PLAN
+
+-> Customer
+ - name -> String;
+ - balance -> float;
+ - cart -> Cart;
+
+-> Cart
+ - size -> int;
+ - products -> ArrayList<Product>;
+
+-> Product
+ - iD -> int;
+ - name -> String;
+ - price -> float;
+ - description -> String;
