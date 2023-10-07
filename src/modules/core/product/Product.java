@@ -1,10 +1,10 @@
 package modules.core.product;
 
 public class Product implements Comparable<Product> {
-    private int id;
-    private String name;
-    private float price;
-    private String description;
+    private final int id;
+    private final String name;
+    private final float price;
+    private final String description;
 
     public Product(int id, String name, float price, String description) {
         this.id = id;
@@ -25,19 +25,15 @@ public class Product implements Comparable<Product> {
         return price;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     @Override
     public int compareTo(Product o) {
-        return this.getName().compareTo(o.getName());
+        return Integer.compare(this.getId(), o.getId());
     }
 
     @Override
     public String toString() {
         return String.format(
-            "ID: %d, NOME: %s, PREÇO: %.2f, DESCRIÇÂO: %s",
+            "ID: %d\nNOME: %s\nPREÇO: %.2f\nDESCRIÇÂO: %s",
             id,
             name,
             price,

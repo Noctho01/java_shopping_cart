@@ -1,35 +1,40 @@
 package modules.core.customer;
 
-import modules.core.product.Product;
+import modules.core.product.ProductStock;
+import modules.core.product.StockManager;
 
 import java.util.ArrayList;
 
-public class Cart {
-   private ArrayList<Product> products;
+public class Cart extends StockManager {
 
-   public Cart(ArrayList<Product> products) {
-      this.products = products;
+   public Cart(ArrayList<ProductStock> productsStock) {
+      super(productsStock);
    }
 
    public int getSize() {
-      return products.size();
+      int total = 0;
+
+      for (ProductStock productStock : productStocks)
+         total += productStock.getQuantity();
+
+      return total;
    }
 
-   public float getCostTotal() {
-      float cost = 0;
+   public void printCart() {
+      System.out.printf("%-4s %-18s %10s %10s %10s%n", "ID", "NOME", "QUANTIDADE", "PREÇO P/U", "PREÇO T");
 
-      for (Product product: products) {
-         cost += product.getPrice();
+      for (ProductStock productStock: productStocks) {
+         var product = productStock.getProduct();
+         var quantity = productStock.getQuantity();
+
+         System.out.printf("%-4s %-18s %10d %10.2f %10.2f%s",
+                 product.getId() < 10 ? "0" + product.getId() : product.getId(),
+                 product.getName(),
+                 quantity,
+                 product.getPrice(),
+                 productStock.getCostTotal(),
+                 productStocks.indexOf(productStock) == productStocks.size() - 1 ? "\n\n" : "\n"
+         );
       }
-
-      return cost;
-   }
-
-   public void listProducts() {
-      products.forEach(System.out::println);
-   }
-
-   public void addProduct(Product newProduct) {
-      products.add(newProduct);
    }
 }
